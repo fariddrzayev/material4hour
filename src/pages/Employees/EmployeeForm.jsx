@@ -14,7 +14,7 @@ const useStyle = makeStyles(theme => ({
 
 const initialFValues = {
     id: 0,
-    fullname: '',
+    fullName: '',
     email: '',
     mobile: '',
     city: '',
@@ -27,6 +27,13 @@ const initialFValues = {
 export default function EmployeeForm() {
     const classes = useStyle();
     const [values, setValues] = useState(initialFValues);
+    const handleInputChange = e => {
+        const {name, value} = e.target
+        setValues({
+            ...values,
+            [name]: value
+        })
+    }
 
     return (
         <form className={classes.root}>
@@ -35,7 +42,9 @@ export default function EmployeeForm() {
                     <TextField
                      variant="outlined"
                      label="Full Name"
-                     value={values.fullname}
+                     value={values.fullName}
+                     onChange= {handleInputChange}
+                     name="fullName"
                     />
                     <TextField
                      variant="outlined"
