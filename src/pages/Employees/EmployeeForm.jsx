@@ -1,6 +1,9 @@
-import { Grid, makeStyles, TextField } from '@material-ui/core';
-import React, {useState, useEffect} from 'react'
+import { Grid, makeStyles, TextField, FormControl, FormLabel, FormControlLabel, Radio } from '@material-ui/core';
+// import Input from '../../components/controls/Input' ;
+import Controls from '../../components/controls/Controls' ;
+import React, {useState, useEffect} from 'react';
 import {useForm, Form} from '../../components/useForm';
+import  * as employeeService from '../../services/employeeService';
 
 const useStyle = makeStyles(theme => ({
     root: {
@@ -12,7 +15,11 @@ const useStyle = makeStyles(theme => ({
     }
 }))
     
-
+const genderItems = [
+    {id: 'male', title: 'Male'},
+    {id: 'female', title: 'Female'},
+    {id: 'other', title: 'Other'},
+]
 const initialFValues = {
     id: 0,
     fullName: '',
@@ -35,27 +42,42 @@ export default function EmployeeForm() {
     } = useForm(initialFValues);
 
 
-
     return (
-        <form className={classes.root}>
+        <form className={classes.root} autoComplete="off" >
             <Grid container>
                 <Grid item xs={6}>
-                    <TextField
-                     variant="outlined"
-                     label="Full Name"
-                     value={values.fullName}
-                     onChange = {handleInputChange}
-                     name="fullName"
+                <Controls.Input
+                name="fullName"
+                label="Full Name"
+                value={values.fullName}
+                onChange={handleInputChange}
+                />
+                
+                <Controls.Input 
+                name="email"
+                label="Email"
+                value={values.email}
+                onChange={handleInputChange}
+                />
+                </Grid>
+                
+                <Grid item xs={6}>
+
+                    <Controls.RadioGroup 
+                        name="gender"
+                        label="Gender"
+                        value={values.gender}
+                        onChange={handleInputChange}
+                        items={genderItems}
                     />
-                    <TextField
-                     variant="outlined"
-                     label="Email"
-                     name="email"
-                     onChange = {handleInputChange}
-                     value={values.email}
+                    <Controls.Select
+                        name="departmentId"
+                        label="Department"
+                        value={values.departmentId}
+                        onChange={handleInputChange}
+                        options={employeeService.getDepartmentColllection()}
                     />
                 </Grid>
-                <Grid item xs={6}></Grid>
             </Grid>
         </form>
     )
