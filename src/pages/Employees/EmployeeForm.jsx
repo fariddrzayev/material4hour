@@ -66,7 +66,7 @@ export default function EmployeeForm() {
     const handleSubmit = e => {
         e.preventDefault()
         if(validate()){
-            window.alert('ttt')
+            employeeService.insertEmployee(values)
         }
     }
 
