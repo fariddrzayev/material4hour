@@ -59,6 +59,18 @@ export default function EmployeeForm() {
                 value={values.email}
                 onChange={handleInputChange}
                 />
+                <Controls.Input 
+                name="mobile"
+                label="Mobile"
+                value={values.mobile}
+                onChange={handleInputChange}
+                />
+                <Controls.Input 
+                name="city"
+                label="City"
+                value={values.city}
+                onChange={handleInputChange}
+                />
                 </Grid>
                 
                 <Grid item xs={6}>
@@ -77,6 +89,31 @@ export default function EmployeeForm() {
                         onChange={handleInputChange}
                         options={employeeService.getDepartmentColllection()}
                     />
+
+                    <Controls.DatePicker
+                        name="hireDate"
+                        label="Hire Date"
+                        value={values.hireDate}
+                        onChange={handleInputChange}
+                    />
+
+                    <Controls.Checkbox 
+                        name="isPermanent"
+                        label="Permanent Employee"
+                        value={values.isPermanent}
+                        onChange={handleInputChange}
+                    />
+                        
+                        <div>
+                            <Controls.Button 
+                                text="Submit"
+                                type="submit"
+                            />
+                            <Controls.Button 
+                                text="Reset"
+                                color="default"
+                            />
+                        </div>
                 </Grid>
             </Grid>
         </form>
