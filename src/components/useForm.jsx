@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 
-export function useForm(initialFValues) {
+export function useForm(initialFValues, validateOnChange=false, validate) {
 
     const [ values, setValues] = useState(initialFValues);
     const [ errors, setErrors] = useState({});
@@ -13,7 +13,15 @@ export function useForm(initialFValues) {
             ...values,
             [name]: value
         })
+        if(validateOnChange){
+            validate({[name]: value})
+        }
     }
+
+    const resetForm = () => {
+        setValues(initialFValues)
+        setErrors({})
+    } 
     
     return {
         values,
@@ -21,8 +29,9 @@ export function useForm(initialFValues) {
         errors,
         setErrors,
         handleInputChange,
+        resetForm
     }
-}
+} 
 
 // export function Form() {
 //     return (
