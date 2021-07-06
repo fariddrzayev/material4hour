@@ -33,17 +33,39 @@ const initialFValues = {
 }
 
 export default function EmployeeForm() {
-    const classes = useStyle();
 
+    const validate = () => {
+        let temp = {}
+        temp.fullName = values.fullName?"":"This field is required."
+        temp.email = (/$^|.+@.+..+/).test(values.email)?"":"Email is not valid."
+        temp.mobile = values.mobile.length>9?"":"Minumum 10 numbers required."
+        temp.departmentId = values.departmentId.length !=0?"":"This field is required"
+        setErrors({
+            ...temp
+        })
+
+        return Object.values(temp).every(x => x =="")
+    }
+    const classes = useStyle();
+ 
     const {
         values,
         setValues,
+        errors,
+        setErrors,
         handleInputChange
     } = useForm(initialFValues);
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        if(validate()){
+            window.alert('ttt')
+        }
+    }
+
 
     return (
-        <form className={classes.root} autoComplete="off" >
+        <form onSubmit={handleSubmit} className={classes.root} autoComplete="off" >
             <Grid container>
                 <Grid item xs={6}>
                 <Controls.Input
@@ -51,6 +73,7 @@ export default function EmployeeForm() {
                 label="Full Name"
                 value={values.fullName}
                 onChange={handleInputChange}
+                error={errors.fullName}
                 />
                 
                 <Controls.Input 
@@ -58,18 +81,21 @@ export default function EmployeeForm() {
                 label="Email"
                 value={values.email}
                 onChange={handleInputChange}
+                error={errors.email}
                 />
                 <Controls.Input 
                 name="mobile"
                 label="Mobile"
                 value={values.mobile}
                 onChange={handleInputChange}
+                error={errors.mobile}
                 />
                 <Controls.Input 
                 name="city"
                 label="City"
                 value={values.city}
                 onChange={handleInputChange}
+                error={errors.city}
                 />
                 </Grid>
                 
@@ -88,6 +114,7 @@ export default function EmployeeForm() {
                         value={values.departmentId}
                         onChange={handleInputChange}
                         options={employeeService.getDepartmentColllection()}
+                        error={errors.departmentId}
                     />
 
                     <Controls.DatePicker
