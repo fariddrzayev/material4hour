@@ -35,8 +35,8 @@ export default function Employees() {
                 icon={<PeopleOutlineIcon fontSize="large" />}
             />
             <Paper className={classes.pageContent}>
-                {/* <EmployeeForm /> */}
-                <TblContainer>
+                <EmployeeForm />
+                {/* <TblContainer>
                     <TblHead />
                     <TableBody>
                         {
@@ -51,8 +51,8 @@ export default function Employees() {
                             ))
                         }
                     </TableBody>
-                </TblContainer>
-                <TblPagination />
+                </TblContainer> */}
+                {/* <TblPagination /> */}
             </Paper>
         </>
     )
